@@ -1,0 +1,39 @@
+name: Slack Notifications
+
+on:
+  issues:
+    types: [opened, labeled]
+  watch:
+    types: [started]
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  notify:
+    name: Notify Slack
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Slack Configuration
+        id: check_token
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        run: |
+          if [ -z "$SLACK_BOT_TOKEN" ]; then
+            echo "SLACK_BOT_TOKEN secret is not set; skipping Slack notifications."
+            echo "configured=false" >> $GITHUB_OUTPUT
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Notification
+        if: steps.check_token.outputs.configured == 'true'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL: ${{ vars.SLACK_CHANNEL || 'general' }}
+          EVENT_NAME: ${{ github.event_name }}
+          ACTOR: ${{ github.actor }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "Sending notification for ${EVENT_NAME} in ${REPO} triggered by ${ACTOR} to channel ${SLACK_CHANNEL}."
