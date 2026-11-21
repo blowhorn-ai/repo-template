@@ -1,0 +1,32 @@
+name-template: "v$NEXT_PATCH_VERSION"
+tag-template: "v$NEXT_PATCH_VERSION"
+categories:
+  - title: "🚀 Features"
+    labels:
+      - "kind/feature"
+      - "kind/enhancement"
+  - title: "🐛 Bug Fixes"
+    labels:
+      - "kind/bug"
+  - title: "📝 Documentation"
+    labels:
+      - "kind/documentation"
+      - "area/docs"
+  - title: "🛠 Maintenance & CI"
+    labels:
+      - "kind/chore"
+      - "kind/refactor"
+      - "kind/test"
+      - "area/ci"
+      - "area/infra"
+      - "area/build"
+  - title: "🔒 Security"
+    labels:
+      - "area/security"
+change-template: "- $TITLE (#$NUMBER) @$AUTHOR"
+template: |
+  ## What's Changed
+  $CHANGES
+
+  ## Contributors
+  $CONTRIBUTORS

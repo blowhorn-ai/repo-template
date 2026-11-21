@@ -1,0 +1,15 @@
+# Issue Template Configuration
+# Disables blank issues to ensure incoming reports are structured and actionable.
+
+blank_issues_enabled: false
+
+contact_links:
+  - name: ✉️ Email Support
+    url: mailto:support@blowhorn.ai
+    about: Reach out to the Blowhorn AI team directly for support, questions, or general inquiries.
+  - name: 🔒 Report a Security Vulnerability
+    url: mailto:security@blowhorn.ai
+    about: Privately report sensitive security issues and vulnerabilities directly to our security response team.
+  - name: 💬 Community Discussions
+    url: https://github.com/blowhorn-ai/repo-template/discussions
+    about: Ask questions, share ideas, and discuss design proposals with the community.

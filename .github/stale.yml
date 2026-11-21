@@ -1,0 +1,30 @@
+# Configuration for git-stale bot
+# Periodically flags inactive issues and pull requests to keep triage clean.
+
+# Number of days of inactivity before an issue or PR is marked stale
+daysUntilStale: 45
+
+# Number of days of inactivity before a stale issue or PR is closed
+daysUntilClose: 10
+
+# Label applied to stale issues
+staleLabel: "status/stale"
+
+# Issues or PRs with these labels are exempted from being marked stale
+exemptLabels:
+  - "status/accepted"
+  - "status/in-progress"
+  - "help wanted"
+  - "good first issue"
+
+# Comment posted when marking an item stale
+markComment: >
+  This issue has been automatically marked as stale because it has not had
+  recent activity. It will be closed in 10 days if no further activity occurs.
+  If this issue is still relevant, please leave a comment to keep it open.
+
+# Comment posted when closing a stale item
+closeComment: >
+  This issue has been automatically closed due to inactivity. If you still
+  experience this issue or wish to resume work, please feel free to reopen
+  or open a new issue with updated context. Thank you for contributing!

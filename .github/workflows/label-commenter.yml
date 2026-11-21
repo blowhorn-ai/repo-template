@@ -1,0 +1,28 @@
+name: Label Commenter
+
+on:
+  issues:
+    types: [labeled]
+  pull_request_target:
+    types: [labeled]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  comment:
+    name: Post Label Guidance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Default Branch Configuration
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Execute Label Commenter
+        uses: peaceiris/actions-label-commenter@v1.10.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          config_file: ".github/label-commenter-config.yml"
