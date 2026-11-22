@@ -65,6 +65,7 @@ EXPECTED_FILES=(
   ".github/workflows/label-commenter.yml"
   ".github/workflows/release-drafter.yml"
   ".github/workflows/multi-platform.yml"
+  ".github/workflows/codeql-analysis.yml"
   ".agents/skills/code-review/SKILL.md"
   ".agents/skills/documentation/SKILL.md"
   ".agents/skills/repo-navigation/SKILL.md"

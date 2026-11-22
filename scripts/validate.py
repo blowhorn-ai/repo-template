@@ -12,31 +12,38 @@ import subprocess
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 UPSTREAM_DIR = os.path.join(REPO_ROOT, "upstream")
 
+try:
+    import yaml
+except ImportError:
+    print("Error: PyYAML is required to validate YAML files. Install via: pip install pyyaml")
+    sys.exit(1)
+
 def log(section: str):
     print(f"\n=== {section} ===")
 
-def parse_simple_yaml(filepath: str):
-    """Basic line-based parser to validate syntax and indentation."""
+class UniqueKeyLoader(yaml.SafeLoader):
+    """YAML SafeLoader that detects duplicate mapping keys to prevent accidental configuration overrides."""
+    def construct_mapping(self, node, deep=False):
+        mapping = {}
+        for key_node, value_node in node.value:
+            key = self.construct_object(key_node, deep=deep)
+            if key in mapping:
+                line = key_node.start_mark.line + 1
+                col = key_node.start_mark.column + 1
+                raise yaml.constructor.ConstructorError(
+                    f"Duplicate key '{key}' found at line {line}, column {col}"
+                )
+            mapping[key] = self.construct_object(value_node, deep=deep)
+        return mapping
+
+def parse_yaml_file(filepath: str):
+    """Loads and validates YAML file using PyYAML with duplicate key detection."""
     with open(filepath, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-    
-    # Check for basic syntax anomalies (tabs instead of spaces, unbalanced quotes, colon formatting)
-    for idx, line in enumerate(lines, 1):
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#"):
-            continue
-        if "\t" in line.split("#")[0]:
-            raise ValueError(f"Tab character found on line {idx}")
-        # Check basic key-value syntax if contains colon
-        if ":" in line and not line.strip().startswith("-"):
-            parts = line.split(":", 1)
-            key = parts[0].strip()
-            if " " in key and not (key.startswith("'") or key.startswith('"')):
-                pass # valid in some YAML keys
-    return True
+        # Load all documents if multi-document YAML
+        return list(yaml.load_all(f, Loader=UniqueKeyLoader))
 
 def validate_yaml_files():
-    log("1. Validating YAML Syntax")
+    log("1. Validating YAML Syntax & Duplicate Keys (PyYAML)")
     yaml_files = []
     for root, dirs, files in os.walk(REPO_ROOT):
         # Don't recurse into .git
@@ -50,7 +57,7 @@ def validate_yaml_files():
     for yf in sorted(yaml_files):
         rel = os.path.relpath(yf, REPO_ROOT)
         try:
-            parse_simple_yaml(yf)
+            parse_yaml_file(yf)
             print(f"  [OK] Valid YAML: {rel}")
         except Exception as e:
             print(f"  [FAIL] YAML error in {rel}: {e}")
@@ -67,7 +74,7 @@ def validate_workflows():
     errors = 0
     expected_workflows = [
         "ci.yml", "slack.yml", "labeler.yml", "label-commenter.yml",
-        "release-drafter.yml", "multi-platform.yml"
+        "release-drafter.yml", "multi-platform.yml", "codeql-analysis.yml"
     ]
     
     for wf_dir in workflow_dirs:

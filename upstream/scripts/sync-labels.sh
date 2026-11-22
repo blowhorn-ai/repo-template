@@ -52,34 +52,28 @@ fi
 
 python3 -c "
 import sys
+try:
+    import yaml
+except ImportError:
+    sys.exit('Error: PyYAML is required. Install with: pip install pyyaml')
 
 with open('${LABELS_FILE}', 'r', encoding='utf-8') as f:
-    content = f.read()
+    try:
+        data = yaml.safe_load(f)
+    except Exception as e:
+        sys.exit(f'Error parsing ${LABELS_FILE}: {e}')
 
-items = []
-current = {}
-for line in content.splitlines():
-    line = line.strip()
-    if not line or line.startswith('#'):
+if not isinstance(data, list):
+    sys.exit('Error: Expected ${LABELS_FILE} to contain a list of label definitions')
+
+for item in data:
+    if not isinstance(item, dict):
         continue
-    if line.startswith('- name:'):
-        if current and 'name' in current:
-            items.append(current)
-        current = {'name': line.split('- name:', 1)[1].strip().strip('\"\'')}
-    elif line.startswith('name:'):
-        current['name'] = line.split('name:', 1)[1].strip().strip('\"\'')
-    elif line.startswith('color:'):
-        current['color'] = line.split('color:', 1)[1].strip().strip('\"\'').lstrip('#')
-    elif line.startswith('description:'):
-        current['description'] = line.split('description:', 1)[1].strip().strip('\"\'')
-if current and 'name' in current:
-    items.append(current)
-
-for item in items:
-    name = item.get('name', '')
-    color = item.get('color', '')
-    desc = item.get('description', '')
-    print(f'{name}\t{color}\t{desc}')
+    name = str(item.get('name', '')).strip()
+    color = str(item.get('color', '')).strip().lstrip('#')
+    desc = str(item.get('description', '')).strip()
+    if name:
+        print(f'{name}\t{color}\t{desc}')
 " | while IFS=$'\t' read -r name color desc; do
   if [[ "${DRY_RUN}" == "true" ]]; then
     echo "  [PLAN] Create/Update label: '${name}' (color: #${color}, description: '${desc}')"

@@ -57,7 +57,17 @@ Identifies the repository component affected:
 - `component/cli` (`#0052cc`): Command-line tools and utilities.
 - `component/api` (`#0e8a16`): Public and private API interfaces.
 
-#### D. Status (`status/*`)
+#### D. Technology Stack Presets (`language/*` & `framework/*`)
+Provides standard language and framework presets across repositories. Projects adopt only the labels matching their active stack:
+- `language/javascript` (`#f1e05a`): JavaScript codebase, modules, or dependencies.
+- `language/typescript` (`#3178c6`): TypeScript types, compilation, or modules.
+- `language/python` (`#3572a5`): Python codebase, packages, or scripts.
+- `language/go` (`#00add8`): Go codebase, packages, or services.
+- `language/rust` (`#dea584`): Rust codebase, crates, or performance modules.
+- `framework/react` (`#61dafb`): React UI components, state management, or hooks.
+- `framework/node` (`#339933`): Node.js server runtime, worker threads, or APIs.
+
+#### E. Status (`status/*`)
 Reflects triage and workflow state:
 - `status/accepted` (`#0e8a16`): Issue triaged and accepted for implementation.
 - `status/in-progress` (`#fbca04`): Work is actively ongoing.
@@ -66,7 +76,7 @@ Reflects triage and workflow state:
 - `status/duplicate` (`#cfd3d7`): Duplicate of another issue or pull request.
 - `status/wontfix` (`#ffffff`): Will not be implemented or resolved.
 
-#### E. Community & Onboarding
+#### F. Community & Onboarding
 Encourages community engagement and signals accessible tasks:
 - `help wanted` (`#008672`): Extra attention is welcome from community contributors.
 - `good first issue` (`#7057ff`): Well-scoped task suitable for new contributors.

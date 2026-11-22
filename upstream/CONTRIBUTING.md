@@ -20,12 +20,17 @@ All contributors and maintainers are expected to adhere to our [Code of Conduct]
 4. **Testing**: Run tests locally and add test coverage for bug fixes or new functionality.
 5. **Documentation**: Update documentation whenever behavior or configuration changes.
 
-## Developer Certificate of Origin (DCO)
+## Developer Certificate of Origin (DCO) & Commit Sign-Off
 
-If required by this repository, sign off on your commits:
+To ensure legal clarity and open-source provenance, contributors are requested to follow the [Developer Certificate of Origin (DCO)](https://developercertificate.org/) standard by signing off on all commits.
+
+Sign off your commit using the `-s` (or `--signoff`) flag:
 ```bash
 git commit -s -m "feat(core): add feature description"
 ```
+The `-s` flag appends `Signed-off-by: Your Name <your.email@example.com>` to the commit message, certifying that you wrote or have the right to submit the code under the project's open source license.
+
+> **Note on Historical Commits**: Commits created during initial repository setup prior to formal DCO enforcement may lack sign-off lines; existing published commit history is preserved without rewriting. All new commits on active branches should include a valid sign-off.
 
 ## Contact & Questions
 

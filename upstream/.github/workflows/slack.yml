@@ -22,12 +22,12 @@ jobs:
         run: |
           if [ -z "$SLACK_BOT_TOKEN" ]; then
             echo "SLACK_BOT_TOKEN secret is not set; skipping Slack notifications."
-            echo "configured=false" >> $GITHUB_OUTPUT
+            echo "configured=false" >> "$GITHUB_OUTPUT"
           else
-            echo "configured=true" >> $GITHUB_OUTPUT
+            echo "configured=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Send Notification
+      - name: Send Slack Notification
         if: steps.check_token.outputs.configured == 'true'
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -35,5 +35,26 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           ACTOR: ${{ github.actor }}
           REPO: ${{ github.repository }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
         run: |
-          echo "Sending notification for ${EVENT_NAME} in ${REPO} triggered by ${ACTOR} to channel ${SLACK_CHANNEL}."
+          if [ "${EVENT_NAME}" = "issues" ]; then
+            MESSAGE="📝 *New Issue in ${REPO}*\n>*${ISSUE_TITLE}*\n>Opened by @${ACTOR} • <${ISSUE_URL}|View Issue>"
+          elif [ "${EVENT_NAME}" = "watch" ]; then
+            MESSAGE="⭐ *New Star on ${REPO}*\n>Starred by @${ACTOR}!"
+          else
+            MESSAGE="🔔 *Notification from ${REPO}*\n>Event: ${EVENT_NAME} triggered by @${ACTOR}."
+          fi
+
+          RESPONSE=$(curl -s -X POST https://slack.com/api/chat.postMessage \
+            -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+            -H "Content-type: application/json; charset=utf-8" \
+            --data "$(jq -n --arg ch "${SLACK_CHANNEL}" --arg txt "${MESSAGE}" '{channel: $ch, text: $txt}')")
+
+          OK=$(echo "${RESPONSE}" | jq -r '.ok // false')
+          if [ "${OK}" != "true" ]; then
+            ERR=$(echo "${RESPONSE}" | jq -r '.error // "unknown error"')
+            echo "Warning: Slack notification failed with error: ${ERR}"
+          else
+            echo "Slack notification sent successfully to #${SLACK_CHANNEL}."
+          fi

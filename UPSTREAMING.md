@@ -30,7 +30,7 @@ This document explains the relationship, differences, and synchronization proces
 
 ## 3. Complete File Comparison & Difference Matrix
 
-Both implementations maintain an identical 31-file topology:
+Both implementations maintain an identical 32-file topology:
 
 | Category | File Path | Differences Between Blowhorn & Upstream |
 | :--- | :--- | :--- |
@@ -44,7 +44,7 @@ Both implementations maintain an identical 31-file topology:
 | **Docs** | `docs/workflow-policy.md` | Blowhorn-specific references vs generic platform guidelines. |
 | | `docs/templates-and-labels.md` | Support contact details. |
 | **Scripts** | `scripts/sync-labels.sh` | Identical logic (operates on relative `.github/labels.yml`). |
-| **GitHub Config** | `.github/labels.yml` | Identical 25 canonical labels. |
+| **GitHub Config** | `.github/labels.yml` | Identical 37 canonical labels (including language/framework presets). |
 | | `.github/labeler.yml` | Identical path glob rules. |
 | | `.github/label-commenter-config.yml` | Blowhorn branding footer and contact links. |
 | | `.github/release-drafter.yml` | Identical release drafter categories. |
@@ -56,6 +56,7 @@ Both implementations maintain an identical 31-file topology:
 | | `.github/ISSUE_TEMPLATE/ci.md` | Identical fields. |
 | | `.github/ISSUE_TEMPLATE/config.yml` | Contact links (`support@blowhorn.ai` vs `support@example.com`). |
 | **Workflows** | `.github/workflows/ci.yml` | Identical verification structure. |
+| | `.github/workflows/codeql-analysis.yml`| Identical security scanning workflow. |
 | | `.github/workflows/slack.yml` | Identical safe Slack token check and degradation. |
 | | `.github/workflows/labeler.yml` | Identical `actions/labeler@v5` configuration. |
 | | `.github/workflows/label-commenter.yml`| Identical label commenter setup. |
@@ -93,5 +94,5 @@ Before contributing `upstream/` to an external repository or public template cat
 
 1. **License Selection**: Confirm whether upstream repositories require Apache 2.0 (current default) or MIT.
 2. **Contact Placeholders**: Verify whether the upstream host project specifies its own security and code of conduct contact channels or prefers `<CONTACT_EMAIL>` placeholders.
-3. **Default Branch Alignment**: Confirm whether upstream projects use `main` or `master` as their canonical default branch (the template workflows default to `main`).
+3. **Default Branch Alignment**: Confirm whether upstream projects use `main` or `master` as their canonical default branch (the template workflows natively support both `main` and `master`).
 4. **Container Registry**: The multi-platform build workflow defaults to GitHub Container Registry (`ghcr.io`); verify if upstream projects require Docker Hub (`docker.io`) examples.

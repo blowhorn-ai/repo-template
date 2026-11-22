@@ -20,13 +20,17 @@ All contributors and maintainers are expected to adhere to our [Code of Conduct]
 4. **Testing**: Run tests locally and add test coverage for bug fixes or new functionality.
 5. **Documentation**: Update relevant documentation when adding features or altering configuration.
 
-## Developer Certificate of Origin (DCO) & Sign-Off
+## Developer Certificate of Origin (DCO) & Commit Sign-Off
 
-To ensure legal clarity for open source contributions, commits may require Developer Certificate of Origin sign-off:
+To ensure legal clarity and open-source provenance, Blowhorn AI projects follow the [Developer Certificate of Origin (DCO)](https://developercertificate.org/) standard. All contributors are required to sign off on their commits.
+
+Sign off your commit using the `-s` (or `--signoff`) flag:
 ```bash
 git commit -s -m "feat(core): add feature description"
 ```
-The `-s` flag appends `Signed-off-by: Your Name <your.email@example.com>` to the commit message.
+The `-s` flag appends `Signed-off-by: Your Name <your.email@example.com>` to the commit message, certifying that you wrote or have the right to submit the code under the project's open source license.
+
+> **Note on Historical Commits**: Commits created during initial repository setup prior to formal DCO enforcement may lack sign-off lines; existing published commit history is preserved without rewriting. All new commits on active branches must be signed off.
 
 ## Contact & Questions
 

@@ -6,7 +6,7 @@ This document defines repository conventions, development rules, and verificatio
 
 - **Organization**: Blowhorn AI
 - **Repository**: Repository Template (`blowhorn-ai/repo-template`)
-- **Default Branch**: `main`
+- **Default Branch**: `master` (Note: While this repository uses `master`, template consumers may adopt either `main` or `master` as their primary branch; template workflows support both).
 - **Architecture**: Reusable repository template providing GitHub Actions workflows, issue templates, issue labels, and agent skills.
 
 ## 2. Setup and Verification

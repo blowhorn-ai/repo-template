@@ -55,6 +55,31 @@
   color: "0e8a16"
   description: "Public and private API interfaces"
 
+# Languages (Standard presets - keep relevant languages for the project stack)
+- name: "language/javascript"
+  color: "f1e05a"
+  description: "JavaScript codebase, modules, or dependencies"
+- name: "language/typescript"
+  color: "3178c6"
+  description: "TypeScript types, compilation, or modules"
+- name: "language/python"
+  color: "3572a5"
+  description: "Python codebase, packages, or scripts"
+- name: "language/go"
+  color: "00add8"
+  description: "Go codebase, packages, or services"
+- name: "language/rust"
+  color: "dea584"
+  description: "Rust codebase, crates, or performance modules"
+
+# Frameworks (Standard presets - adopt as applicable to project architecture)
+- name: "framework/react"
+  color: "61dafb"
+  description: "React UI components, state management, or hooks"
+- name: "framework/node"
+  color: "339933"
+  description: "Node.js server runtime, worker threads, or APIs"
+
 # Issue and PR status
 - name: "status/accepted"
   color: "0e8a16"

@@ -6,7 +6,7 @@ This document defines repository conventions, development rules, and verificatio
 
 - **Project**: `<PROJECT_NAME>`
 - **Organization**: `<ORGANIZATION>`
-- **Default Branch**: `main`
+- **Default Branch**: `master` (or `main`; workflows support both primary branch conventions).
 - **Architecture**: Reusable repository template providing GitHub Actions workflows, issue templates, issue labels, and agent skills.
 
 ## 2. Setup and Verification

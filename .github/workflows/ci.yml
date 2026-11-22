@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main", "master"]
   push:
-    branches: ["main"]
+    branches: ["main", "master"]
   workflow_dispatch:
 
 permissions:
@@ -17,6 +17,7 @@ jobs:
   # 2. Add dependency caching and installation.
   # 3. Add linting, formatting checks, and unit tests.
   # 4. Ensure required status checks match the job names configured here.
+  # 5. The workflow supports both 'main' and 'master' default branch conventions.
   verify:
     name: Repository Verification
     runs-on: ubuntu-latest
@@ -30,5 +31,6 @@ jobs:
           echo "Blowhorn AI Repository Template: CI Baseline"
           echo "================================================================="
           echo "Configure this workflow for your repository's specific toolchain."
+          echo "Primary branches supported: main, master."
           echo "See docs/workflow-policy.md for recommendations and matrix examples."
           echo "================================================================="
