@@ -1,0 +1,33 @@
+# Label Commenter configuration for Blowhorn AI repositories
+# Automatically comments on issues and pull requests when specific labels are applied.
+
+comment:
+  footer: "\n\n---\n*Blowhorn AI Community Automation • [Contributing Guidelines](CONTRIBUTING.md)*"
+
+labels:
+  - name: "help wanted"
+    labeled:
+      issue:
+        body: >
+          👋 **Welcome community contributors!** This issue is labeled `help wanted` and is open for contributions.
+
+
+          Please review our [Contributing Guide](CONTRIBUTING.md) to get started. If you plan to work on this, comment below so we can assign it to you and avoid duplicate effort!
+        action: open
+
+  - name: "good first issue"
+    labeled:
+      issue:
+        body: >
+          🌱 **New to Blowhorn AI?** This issue is designated as a `good first issue`—ideal for newcomers to our codebase.
+
+
+          If you need guidance or have questions, feel free to ask directly in this thread or email [support@blowhorn.ai](mailto:support@blowhorn.ai). We're excited to have you contribute!
+        action: open
+
+  - name: "status/in-progress"
+    labeled:
+      issue:
+        body: >
+          ⚙️ This issue has been marked `status/in-progress`. Please feel free to open a Draft Pull Request early so the team can provide feedback and review your progress.
+        action: open

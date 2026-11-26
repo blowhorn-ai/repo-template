@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ["main", "master"]
+  push:
+    branches: ["main", "master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Base verification job.
+  # When creating a new project from this template:
+  # 1. Update the setup step (e.g. actions/setup-node, actions/setup-python, actions/setup-go).
+  # 2. Add dependency caching and installation.
+  # 3. Add linting, formatting checks, and unit tests.
+  # 4. Ensure required status checks match the job names configured here.
+  # 5. The workflow supports both 'main' and 'master' default branch conventions.
+  verify:
+    name: Repository Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Template CI Guidance
+        run: |
+          echo "================================================================="
+          echo "Blowhorn AI Repository Template: CI Baseline"
+          echo "================================================================="
+          echo "Configure this workflow for your repository's specific toolchain."
+          echo "Primary branches supported: main, master."
+          echo "See docs/workflow-policy.md for recommendations and matrix examples."
+          echo "================================================================="

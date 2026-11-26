@@ -1,0 +1,15 @@
+# Issue Template Configuration
+# Disables blank issues to ensure incoming reports are structured and actionable.
+
+blank_issues_enabled: false
+
+contact_links:
+  - name: ✉️ General Inquiries & Support
+    url: mailto:support@example.com
+    about: Reach out directly for support, questions, or non-bug inquiries.
+  - name: 🔒 Report a Security Vulnerability
+    url: mailto:security@example.com
+    about: Privately report sensitive security issues and vulnerabilities directly to project maintainers.
+  - name: 💬 Community Discussions
+    url: https://github.com/<ORGANIZATION>/<REPO>/discussions
+    about: Ask questions, share ideas, and discuss design proposals with the community.
